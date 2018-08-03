@@ -6,12 +6,8 @@ import (
 	"log"
 	"net/http"
 	"html/template"
-	"regexp"
 	"os"
 )
-
-var validPath = regexp.MustCompile("^/(edit|save|view)/([a-zA-Z0-9]+)$")
-var search = regexp.MustCompile("\\[([a-zA-Z0-9]+)\\]") 
 
 func rootHandler(w http.ResponseWriter, r *http.Request) {
     files, err := ioutil.ReadDir("./data")
