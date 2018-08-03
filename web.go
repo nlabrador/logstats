@@ -50,11 +50,6 @@ func controllerVisitsHandler(w http.ResponseWriter, r *http.Request) {
     }
 }
 
-type Controller struct {
-    Name string
-    Count int
-}
-
 func main() {
     http.Handle("/assets/", http.StripPrefix("/assets/", http.FileServer(http.Dir("assets"))))
     http.HandleFunc("/", rootHandler)
