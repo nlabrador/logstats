@@ -1,4 +1,4 @@
-#Log Stats
+# Log Stats
 
 Simple web UI to show some stats from symfony monolog logs.
 
