@@ -1,16 +1,4 @@
-<html>
-<head>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" href="/assets/main.css">
-    <title>Log Stats</title>
-</head>
-<body>
-    <main role="main">
-    <div class="container">
-        <div class="row logo-header">
-            <a href="/"><img width="160px" height="45px" src="/assets/logo-long.png"></a>
-            <h2>adminGo</h2>
-        </div>
+    {{ define "content" }}
         <table class="table">
             <thead>
                 <tr>
@@ -27,6 +15,4 @@
                 {{ end }}
             </tbody>
         </table>
-    </div>
-    </main>
-</body>
+    {{ end }}

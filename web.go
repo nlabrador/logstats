@@ -10,7 +10,6 @@ import (
 	"os"
 )
 
-var templates = template.Must(template.ParseFiles("tmpl/view.html", "tmpl/stats.html"))
 var validPath = regexp.MustCompile("^/(edit|save|view)/([a-zA-Z0-9]+)$")
 var search = regexp.MustCompile("\\[([a-zA-Z0-9]+)\\]") 
 
@@ -24,7 +23,12 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
         dates = append(dates, f.Name())
     }
 
-    renderRoot(w, "view", dates)
+    var t *template.Template
+    t, _ = template.ParseFiles("tmpl/layout.html", "tmpl/view.html")
+    err = t.ExecuteTemplate(w, "layout", dates)
+    if err != nil {
+        http.Error(w, err.Error(), http.StatusInternalServerError)
+    }
 }
 
 func controllerVisitsHandler(w http.ResponseWriter, r *http.Request) {
@@ -38,18 +42,9 @@ func controllerVisitsHandler(w http.ResponseWriter, r *http.Request) {
     controllers := make(map[string]interface{})
     json.Unmarshal(byteValue, &controllers)
 
-    renderStats(w, "stats", controllers)
-}
-
-func renderRoot(w http.ResponseWriter, tmpl string, dates []string) {
-    err := templates.ExecuteTemplate(w, tmpl+".html", dates)
-    if err != nil {
-        http.Error(w, err.Error(), http.StatusInternalServerError)
-    }
-}
-
-func renderStats(w http.ResponseWriter, tmpl string, controllers map[string]interface{}) {
-    err := templates.ExecuteTemplate(w, tmpl+".html", controllers)
+    var t *template.Template
+    t, _ = template.ParseFiles("tmpl/layout.html", "tmpl/stats.html")
+    err = t.ExecuteTemplate(w, "layout", controllers)
     if err != nil {
         http.Error(w, err.Error(), http.StatusInternalServerError)
     }
